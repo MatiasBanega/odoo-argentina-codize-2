@@ -24,6 +24,7 @@
         'views/product_uom_view.xml',
         'views/res_currency_view.xml',
         'views/ir_sequence.xml',
+        'views/report_invoice.xml',
         'security/ir.model.access.csv',
     ],
     'demo': [
