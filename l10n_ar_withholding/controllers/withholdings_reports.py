@@ -182,7 +182,7 @@ class WithholdingsReportsController(http.Controller):
         _baseTotal = 0
         _montoPerTotal = 0
 
-        invoices = request.env['account.move'].search([('company_id', '=', company_id),('move_type','in',['out_invoice','out_refund']),('state','=','posted'),('invoice_date','<=',wizard.date_to),('invoice_date','>=',wizard.date_from)],order='invoice_date asc')
+        invoices = request.env['account.move'].search([('company_id', '=', company_id),('state','=','posted'),('invoice_date','>=',wizard.date_from),('invoice_date','<=',wizard.date_to)],order='invoice_date asc')
         for invoice in invoices:
             taxes = json.loads(invoice.tax_totals_json)['groups_by_subtotal']['Importe libre de impuestos']
             for tax in taxes:
