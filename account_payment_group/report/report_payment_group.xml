@@ -1,209 +1,276 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-<data>
-<template id="report_payment_group_document">
+    <data>
+        <template id="report_payment_group_document">
 
-  <t t-if="not o and doc">
-      <t t-set="o" t-value="doc"/>
-  </t>
+            <t t-if="not o and doc">
+                <t t-set="o" t-value="doc"/>
+            </t>
 
-  <t t-set="o" t-value="o.with_context({'lang':o.partner_id.lang})"/>
+            <t t-set="o" t-value="o.with_context({'lang':o.partner_id.lang})"/>
 
-  <t t-if="o and 'company_id' in o">
-      <t t-set="company" t-value="o.company_id"/>
-  </t>
-  <t t-if="not o or not 'company_id' in o">
-      <t t-set="company" t-value="res_company"/>
-  </t>
+            <t t-if="o and 'company_id' in o">
+                <t t-set="company" t-value="o.company_id"/>
+            </t>
+            <t t-if="not o or not 'company_id' in o">
+                <t t-set="company" t-value="res_company"/>
+            </t>
 
-  <div class="article" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id">
-    <!--HEADER-->
-    <div class="header"  style="margin-bottom: 0px !important;">
-		<div class="row" style="border: 1px solid black; border-radius: 10px; margin-bottom: 0px !important;">
-			<!--COMPANY LOGO-->
-			<div class="col-3 text-left">
-				<!--<img t-if="o.company_id.logo" t-att-src="'data:image/png;base64,%s' % o.company_id.logo" style="display: block !important; float: left !important; position: absolute !important; margin-top: 0px !important; margin-bottom: 0px !important; top: 10px !important; left: 10px !important; bottom: auto !important; max-height: 95px;"/>-->
-				<img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="max-width: 230px; max-height: 60px; margin-top: 30px;" alt="Logo"/>
-			</div><!--END COMPANY LOGO-->
-			<!--FE-->
-			<div class="col-2 text-center" style="margin-top: 42px !important;">
-			  <span style="font-size: 11px; font-weight: bold;"><br/></span>
-			</div>
-			<!--END FE-->
-			<!--DOCUMENT LETTER-->
-			<div class="col-2 text-center">
-			  <div class="card" style="margin:0px;">
-				<div class="card-header" style="font-size: 48px;padding:0px;">REC</div>
-				<div class="card-body" style="height: 20px;padding:0px;"><br/></div>
-			  </div>
-			</div><!--END DOCUMENT LETTER-->
-			<!--TIPO,NRO Y FECHA FACTURA-->
-			<div class="col-5 text-left" name="company_address" style="padding-left: 80px !important;">
-			  <h3>
-					RECIBO
-			  </h3>
-			  <span t-if="o.state == 'confirmed' or o.state == 'posted' or o.state == 'draft'">
-					  Fecha: <span t-field="o.payment_date"/><br/>
-			  </span>
-			  <span t-if="o.state == 'confirmed' or o.state == 'posted' or o.state == 'draft'">
-						<!--<span t-field="o.display_name"/>-->
-			  </span>
-			</div>
-			<!--END DATOS FACTURA-->
-		</div>
+            <div class="article" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id">
+                <!--HEADER-->
+                <div class="header" style="margin-bottom: 0px !important;">
+                    <div class="row" style="border: 1px solid black; border-radius: 10px; margin-bottom: 0px !important;">
+                        <!--COMPANY LOGO-->
+                        <div class="col-3 text-left">
+                            <!--<img t-if="o.company_id.logo" t-att-src="'data:image/png;base64,%s' % o.company_id.logo" style="display: block !important; float: left !important; position: absolute !important; margin-top: 0px !important; margin-bottom: 0px !important; top: 10px !important; left: 10px !important; bottom: auto !important; max-height: 95px;"/>-->
+                            <img t-if="company.logo" t-att-src="image_data_uri(company.logo)"
+                                 style="max-width: 230px; max-height: 60px; margin-top: 30px;" alt="Logo"/>
+                        </div><!--END COMPANY LOGO-->
+                        <!--FE-->
+                        <div class="col-2 text-center" style="margin-top: 42px !important;">
+                            <span style="font-size: 11px; font-weight: bold;">
+                                <br/>
+                            </span>
+                        </div>
+                        <!--END FE-->
+                        <!--DOCUMENT LETTER-->
+                        <div class="col-2 text-center">
+                            <div class="card" style="margin:0px;">
+                                <div class="card-header" style="font-size: 48px;padding:0px;">REC</div>
+                                <div class="card-body" style="height: 20px;padding:0px;">
+                                    <br/>
+                                </div>
+                            </div>
+                        </div><!--END DOCUMENT LETTER-->
+                        <!--TIPO,NRO Y FECHA FACTURA-->
+                        <div class="col-5 text-left" name="company_address" style="padding-left: 80px !important;">
+                            <t t-if="o.display_name">
+                                <h3>
+                                    <span t-field="o.display_name"/>
+                                </h3>
+                            </t>
+                            <t t-else="">
+                                <h3>
+                                    RECIBO
+                                </h3>
+                            </t>
+                            <span t-if="o.state == 'confirmed' or o.state == 'posted' or o.state == 'draft'">
+                                Fecha:
+                                <span t-field="o.payment_date"/>
+                                <br/>
+                            </span>
+                            <span t-if="o.state == 'confirmed' or o.state == 'posted' or o.state == 'draft'">
+                                <!--<span t-field="o.display_name"/>-->
+                            </span>
+                        </div>
+                        <!--END DATOS FACTURA-->
+                    </div>
 
-  	</div>
-	 <!--FIN HEADER-->
+                </div>
+                <!--FIN HEADER-->
 
-	  <div class="page" style="margin-top: 0px !important;">
-		  <!--MY COMPANY-->
-  		 <div class="row" style="border: 1px solid black; border-radius: 10px; margin-top: 0px !important;">
-  			 <div class="col-6" style="margin-top: 8px !important;">
-  			   <span t-field="o.company_id.name" style="font-size: 18px; font-weight: bold;"/>
-  			   <div t-field="company.partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: true}"/>
-  			 </div>
-  			 <div class="col-6">
-  			   <p><br/></p>
-  			   <p><strong>CUIT</strong> <span t-field="o.company_id.vat"/> - <span t-field="o.company_id.partner_id.l10n_ar_afip_responsibility_type_id.name"/></p>
-  				<p><strong>Ingresos Brutos:</strong> <span t-if="o.company_id.l10n_ar_gross_income_type == 'exempt'">No liquida</span> <span t-if="o.company_id.l10n_ar_gross_income_type != 'exempt'" t-field="o.company_id.l10n_ar_gross_income_number"/> <br/> <strong>Inicio de actividades:</strong> <span t-field="o.company_id.l10n_ar_afip_start_date"/></p>
-  			 </div>
-  		 </div>
-  		 <!--END MY COMPANY-->
-  		 <br/>
-  		 <!-- CLIENTE  -->
-  		 <div class="row" style="border: 1px solid black; border-radius: 10px;">
-  		   <div class="col-2">
-  			 <strong><span>Cliente</span></strong>
-  		   </div>
-  		   <div name="invoice_address" class="col-4">
-  			 <address t-field="o.partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: True}"/>
-  		   </div>
-  		   <div name="invoice_address" class="col-4">
-  			 <strong>CUIT: </strong><span t-field="o.partner_id.vat"/>
-  			 <p><strong>Condicion de IVA </strong><span t-field="o.partner_id.l10n_ar_afip_responsibility_type_id.name"/></p>
-  		   </div>
-  		 </div>
-  		 <!-- END CLIENTE  -->
+                <div class="page" style="margin-top: 0px !important;">
+                    <!--MY COMPANY-->
+                    <div class="row" style="border: 1px solid black; border-radius: 10px; margin-top: 0px !important;">
+                        <div class="col-6" style="margin-top: 8px !important;">
+                            <span t-field="o.company_id.name" style="font-size: 18px; font-weight: bold;"/>
+                            <div t-field="company.partner_id"
+                                 t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: true}"/>
+                        </div>
+                        <div class="col-6">
+                            <p>
+                                <br/>
+                            </p>
+                            <p>
+                                <strong>CUIT</strong>
+                                <span t-field="o.company_id.vat"/>
+                                -
+                                <span t-field="o.company_id.partner_id.l10n_ar_afip_responsibility_type_id.name"/>
+                            </p>
+                            <p>
+                                <strong>Ingresos Brutos:</strong>
+                                <span t-if="o.company_id.l10n_ar_gross_income_type == 'exempt'">No liquida</span>
+                                <span t-if="o.company_id.l10n_ar_gross_income_type != 'exempt'"
+                                      t-field="o.company_id.l10n_ar_gross_income_number"/>
+                                <br/>
+                                <strong>Inicio de actividades:</strong>
+                                <span t-field="o.company_id.l10n_ar_afip_start_date"/>
+                            </p>
+                        </div>
+                    </div>
+                    <!--END MY COMPANY-->
+                    <br/>
+                    <!-- CLIENTE  -->
+                    <div class="row" style="border: 1px solid black; border-radius: 10px;">
+                        <div class="col-2">
+                            <strong>
+                                <span>Cliente</span>
+                            </strong>
+                        </div>
+                        <div name="invoice_address" class="col-4">
+                            <address t-field="o.partner_id"
+                                     t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: True}"/>
+                        </div>
+                        <div name="invoice_address" class="col-4">
+                            <strong>CUIT:</strong>
+                            <span t-field="o.partner_id.vat"/>
+                            <p>
+                                <strong>Condicion de IVA</strong>
+                                <span t-field="o.partner_id.l10n_ar_afip_responsibility_type_id.name"/>
+                            </p>
+                        </div>
+                    </div>
+                    <!-- END CLIENTE  -->
 
-	    <table class="table">
-	        <thead>
-	            <tr class="border-black">
-					<th></th>
-	                <th>Tipo</th>
-	                <th>Diario</th>
-	                <th>Fecha Cobro</th>
-	                <th>Tipo de pago</th>
-	                <th>Estado</th>
-	                <th class="text-right">Monto</th>
-	            </tr>
-	        </thead>
-	        <tbody class="invoice_tbody">
-	            <tr t-foreach="o.payment_ids" t-as="p">
-				  <td></td>
-	              <td><span t-if="p.payment_type_copy" t-field="p.payment_type_copy"/></td>
-	              <td><span t-if="p.journal_id" t-field="p.journal_id"/></td>
-	              <td><span t-if="p.journal_id" t-field="p.journal_id"/></td>
-	              <td><span t-if="p.date" t-field="p.date"/></td>
-	              <td><span t-if="p.payment_method_line_id" t-field="p.payment_method_line_id"/>
-					<t t-foreach="p.check_ids" t-as="c">
-						(<span t-field="c.name"/> - <span t-field="c.payment_date"/>)|
-					</t>
-	              </td>
-	              <td><span t-if="p.state" t-field="p.state"/></td>
-	              <td class="text-right">
-	                  <span t-field="p.amount" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
-	              </td>
-	            </tr>
-	        </tbody>
-	        <tfoot>
-	          <tr class="border-black">
-	            <td colspan="6"><strong>Total</strong></td>
-	            <td class="text-right">
-	                 <span t-field="o.payments_amount" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
-	            </td>
-	          </tr>
-	        </tfoot>
-	      </table>
-		  
-	      <h5>Facturas Relacionadas</h5>
-              <table class="table">
-                <thead>
-                    <tr>
-                        <th style="width:50%;padding:5px">Factura</th>
-                        <th style="width:50%;padding:5px">Monto de Facturas</th>
-                        <th>Monto Pagado</th>
-                    </tr>
-                </thead>
-                <tbody class="invoice_tbody">
-                    <tr t-foreach="o.matched_move_line_ids" t-as="f" style="font-size:12px">
-                      <td style="padding:0.50rem"><span t-if="f.move_id" t-field="f.move_id"/></td>
-                      <td style="padding:0.50rem"><span t-if="f.balance" t-field="f.balance"/></td>
-                      <td style="padding:0.50rem">
-			<t t-set="payments" t-value="[]"/>
-			<t t-foreach="o.payment_ids" t-as="p">
-				<t t-foreach="p.invoice_line_ids.ids" t-as="i">
-					<t t-set="payments" t-value="payments + [i]"/>
-				</t>
-			</t>
+                    <table class="table">
+                        <thead>
+                            <tr class="border-black">
+                                <th></th>
+                                <th>Tipo</th>
+                                <th>Diario</th>
+                                <th>Fecha Cobro</th>
+                                <th>Tipo de pago</th>
+                                <th>Estado</th>
+                                <th class="text-right">Monto</th>
+                            </tr>
+                        </thead>
+                        <tbody class="invoice_tbody">
+                            <tr t-foreach="o.payment_ids" t-as="p">
+                                <td></td>
+                                <td>
+                                    <span t-if="p.payment_type_copy" t-field="p.payment_type_copy"/>
+                                </td>
+                                <td>
+                                    <span t-if="p.journal_id" t-field="p.journal_id"/>
+                                </td>
+                                <td>
+                                    <span t-if="p.journal_id" t-field="p.journal_id"/>
+                                </td>
+                                <td>
+                                    <span t-if="p.date" t-field="p.date"/>
+                                </td>
+                                <td>
+                                    <span t-if="p.payment_method_line_id" t-field="p.payment_method_line_id"/>
+                                    <t t-foreach="p.check_ids" t-as="c">
+                                        (
+                                        <span t-field="c.name"/>
+                                        -<span t-field="c.payment_date"/>)|
+                                    </t>
+                                </td>
+                                <td>
+                                    <span t-if="p.state" t-field="p.state"/>
+                                </td>
+                                <td class="text-right">
+                                    <span t-field="p.amount"
+                                          t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr class="border-black">
+                                <td colspan="6">
+                                    <strong>Total</strong>
+                                </td>
+                                <td class="text-right">
+                                    <span t-field="o.payments_amount"
+                                          t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
 
-                        <t t-set="credit_move" t-value="request.env['account.partial.reconcile'].sudo().search([('credit_move_id', 'in', payments),('debit_move_id', '=', f.id)])"/>
-                        <t t-set="debit_move" t-value="request.env['account.partial.reconcile'].sudo().search([('debit_move_id', 'in', payments),('credit_move_id', '=', f.id)])"/>
-                        <t t-set="credit" t-value="0"/>
-			<t t-set="debit" t-value="0"/>
-			<t t-foreach="credit_move" t-as="c">
-				<t t-set="credit" t-value="credit + c.amount"/>
-			</t>
-			 <t t-foreach="debit_move" t-as="d">
-                                <t t-set="debit" t-value="debit + d.amount"/>
-                        </t>
+                    <h5>Facturas Relacionadas</h5>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th style="width:50%;padding:5px">Factura</th>
+                                <th style="width:50%;padding:5px">Monto de Facturas</th>
+                                <th>Monto Pagado</th>
+                            </tr>
+                        </thead>
+                        <tbody class="invoice_tbody">
+                            <tr t-foreach="o.matched_move_line_ids" t-as="f" style="font-size:12px">
+                                <td style="padding:0.50rem">
+                                    <span t-if="f.move_id" t-field="f.move_id"/>
+                                </td>
+                                <td style="padding:0.50rem">
+                                    <span t-if="f.balance" t-field="f.balance"/>
+                                </td>
+                                <td style="padding:0.50rem">
+                                    <t t-set="payments" t-value="[]"/>
+                                    <t t-foreach="o.payment_ids" t-as="p">
+                                        <t t-foreach="p.invoice_line_ids.ids" t-as="i">
+                                            <t t-set="payments" t-value="payments + [i]"/>
+                                        </t>
+                                    </t>
 
-			<t t-if="credit - debit != 0">
-                                <span t-esc="credit - debit" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
-                        </t>
-                        <t t-if="credit - debit == 0">
-                                <t t-set="credit" t-value="request.env['account.partial.reconcile'].sudo().search([('debit_move_id', '=', f.id)], limit=1)"/>
-                                <t t-set="debit" t-value="request.env['account.partial.reconcile'].sudo().search([('credit_move_id', '=', f.id)], limit=1)"/>
-                                <span t-esc="credit.amount - debit.amount" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
-                        </t>
-                      </td>
-                    </tr>
-                </tbody>
-                <tfoot>
-                  <tr>
-                    <td/>
-                    <td><strong>Total</strong></td>
-                    <td class="text-left">
-                        <span t-field="o.matched_amount" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
-                    </td>
-                  </tr>
-                </tfoot>
-              </table>
+                                    <t t-set="credit_move"
+                                       t-value="request.env['account.partial.reconcile'].sudo().search([('credit_move_id', 'in', payments),('debit_move_id', '=', f.id)])"/>
+                                    <t t-set="debit_move"
+                                       t-value="request.env['account.partial.reconcile'].sudo().search([('debit_move_id', 'in', payments),('credit_move_id', '=', f.id)])"/>
+                                    <t t-set="credit" t-value="0"/>
+                                    <t t-set="debit" t-value="0"/>
+                                    <t t-foreach="credit_move" t-as="c">
+                                        <t t-set="credit" t-value="credit + c.amount"/>
+                                    </t>
+                                    <t t-foreach="debit_move" t-as="d">
+                                        <t t-set="debit" t-value="debit + d.amount"/>
+                                    </t>
 
-	  </div>
+                                    <t t-if="credit - debit != 0">
+                                        <span t-esc="credit - debit"
+                                              t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
+                                    </t>
+                                    <t t-if="credit - debit == 0">
+                                        <t t-set="credit"
+                                           t-value="request.env['account.partial.reconcile'].sudo().search([('debit_move_id', '=', f.id)], limit=1)"/>
+                                        <t t-set="debit"
+                                           t-value="request.env['account.partial.reconcile'].sudo().search([('credit_move_id', '=', f.id)], limit=1)"/>
+                                        <span t-esc="credit.amount - debit.amount"
+                                              t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
+                                    </t>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td/>
+                                <td>
+                                    <strong>Total</strong>
+                                </td>
+                                <td class="text-left">
+                                    <span t-field="o.matched_amount"
+                                          t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
 
-	</div>
-  <!--<t t-call="report.external_layout_footer"/>-->
+                </div>
 
-</template>
+            </div>
+            <!--<t t-call="report.external_layout_footer"/>-->
 
-<template id="report_payment_group">
-    <t t-call="web.html_container">
-        <t t-foreach="docs" t-as="o">
-            <t t-call="account_payment_group.report_payment_group_document" t-lang="o.partner_id.lang"/>
-        </t>
-    </t>
-</template>
+        </template>
+
+        <template id="report_payment_group">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="account_payment_group.report_payment_group_document" t-lang="o.partner_id.lang"/>
+                </t>
+            </t>
+        </template>
 
         <!-- QWeb Reports -->
         <report
-            id="account_payment_group.account_payment_group_report"
-            model="account.payment.group"
-            string="Recibo"
-            report_type="qweb-pdf"
-            name="account_payment_group.report_payment_group"
-            file="account_payment_group.report_payment_group"
+                id="account_payment_group.account_payment_group_report"
+                model="account.payment.group"
+                string="Recibo"
+                report_type="qweb-pdf"
+                name="account_payment_group.report_payment_group"
+                file="account_payment_group.report_payment_group"
         />
-<!--attachment="(object.state in ('open','paid')) and ('INV'+(object.number or '').replace('/','')+'.pdf')"-->
+        <!--attachment="(object.state in ('open','paid')) and ('INV'+(object.number or '').replace('/','')+'.pdf')"-->
 
-</data>
+    </data>
 </odoo>
