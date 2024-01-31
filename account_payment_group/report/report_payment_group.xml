@@ -68,7 +68,26 @@
 
                 </div>
                 <!--FIN HEADER-->
-
+                <div class="col-5 text-left" name="company_address" style="padding-left: 80px !important;">
+                    <t t-if="o.display_name">
+                        <h3>
+                            <span t-field="o.display_name"/>
+                        </h3>
+                    </t>
+                    <t t-else="">
+                        <h3>
+                            RECIBO
+                        </h3>
+                    </t>
+                    <span t-if="o.state == 'confirmed' or o.state == 'posted' or o.state == 'draft'">
+                        Fecha:
+                        <span t-field="o.payment_date"/>
+                        <br/>
+                    </span>
+                    <span t-if="o.state == 'confirmed' or o.state == 'posted' or o.state == 'draft'">
+                        <!--<span t-field="o.display_name"/>-->
+                    </span>
+                </div>
                 <div class="page" style="margin-top: 0px !important;">
                     <!--MY COMPANY-->
                     <div class="row" style="border: 1px solid black; border-radius: 10px; margin-top: 0px !important;">
@@ -166,7 +185,7 @@
                                 </td>
                             </tr>
                         </tbody>
-                        <tfoot>
+                        <!-- <tfoot>
                             <tr class="border-black">
                                 <td colspan="6">
                                     <strong>Total</strong>
@@ -176,7 +195,7 @@
                                           t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
                                 </td>
                             </tr>
-                        </tfoot>
+                        </tfoot> -->
                     </table>
 
                     <h5>Facturas Relacionadas</h5>
@@ -232,7 +251,7 @@
                                 </td>
                             </tr>
                         </tbody>
-                        <tfoot>
+                        <!-- <tfoot>
                             <tr>
                                 <td/>
                                 <td>
@@ -243,7 +262,7 @@
                                           t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
                                 </td>
                             </tr>
-                        </tfoot>
+                        </tfoot> -->
                     </table>
 
                 </div>
