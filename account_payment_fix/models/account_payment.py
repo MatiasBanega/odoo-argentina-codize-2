@@ -52,6 +52,8 @@ class AccountPayment(models.Model):
         digits=(16, 4),
     )
 
+    payment_type = fields.Selection(selection_add=[('transfer', 'Transferencia Interna')], ondelete={'transfer':'set default'})
+
     @api.depends('amount', 'other_currency', 'amount_company_currency')
     def _compute_exchange_rate(self):
         for rec in self.filtered('other_currency'):
