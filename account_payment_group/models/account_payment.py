@@ -245,7 +245,9 @@ class AccountPayment(models.Model):
                 x['move_line'].account_id.internal_type in [
                     'receivable', 'payable']
                 for x in self._context.get('counterpart_aml_dicts', [])])
-            if rec.partner_type and rec.partner_id and receivable_payable and \
+            if rec.is_insternal_transfer:
+                pass
+            elif rec.partner_type and rec.partner_id and receivable_payable and \
                not rec.payment_group_id:
                 raise ValidationError(_(
                     'Payments with partners must be created from '

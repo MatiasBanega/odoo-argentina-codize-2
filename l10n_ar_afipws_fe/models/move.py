@@ -867,3 +867,5 @@ print "Observaciones:", wscdc.Obs
             # solicitar. Lo mismo podriamos usar para grabar los mensajes de
             # afip de respuesta
             inv._cr.commit()
+
+
